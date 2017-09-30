@@ -1,3 +1,4 @@
+var chai = require('chai');
 var robots = require('../lib');
 
 function MockSite() {
@@ -30,92 +31,51 @@ MockPage.prototype.write = function(data) {
 }
 
 
-describe('robots plugin', function() {
+describe('kerouac-robotstxt', function() {
   
   it('should export function', function() {
     expect(robots).to.be.a('function');
   });
   
-  /*
-  describe('when invoked', function() {
-    var site = new MockSite();
-    site.set('base url', 'http://www.example.com/')
-    
-    robots()(site, site.pages);
-    
-    it('should add robots.txt page', function() {
-      expect(site.pages).to.include.keys('/robots.txt');
-    });
-    
-    describe('and then rendering robots.txt', function() {
-      var p = site.pages['/robots.txt'];
-
-      it('should write robots.txt', function(done) {
-        var expected = [
-          "User-agent: *",
-          "Disallow:",
-          "",
-          ""
-        ].join("\r\n");
-        
-        p.end = function() {
-          expect(p.data).to.equal(expected);
-          done();
-        };
-        
-        p.fn(p, function(err) {
-          return done(new Error('should not call next'));
-        });
-      });
-    });
-  });
+  // site.set('base url', 'http://www.example.com/')
   
-  describe('when invoked on a site with a sitemap', function() {
-    var site = new MockSite();
-    site.set('base url', 'http://www.example.com/')
-    
-    site.page('/sitemap.xml', function(){});
-    site.pages['/sitemap.xml'].sitemap = true;
-    
-    robots()(site, site.pages);
-    
-    it('should add robots.txt page', function() {
-      expect(site.pages).to.include.keys('/robots.txt');
-    });
-    
-    describe('and then rendering robots.txt', function() {
-      var p = site.pages['/robots.txt'];
+  describe('default exclusion', function() {
+    var page, err;
 
-      it('should write robots.txt', function(done) {
-        var expected = [
-          "User-agent: *",
-          "Disallow:",
-          "",
-          "Sitemap: http://www.example.com/sitemap.xml",
-          ""
-        ].join("\r\n");
-        
-        p.end = function() {
-          expect(p.data).to.equal(expected);
+    before(function(done) {
+      chai.kerouac.use(robots())
+        .end(function(p) {
+          page = p;
           done();
-        };
-        
-        p.fn(p, function(err) {
-          return done(new Error('should not call next'));
-        });
-      });
+        })
+        .dispatch();
     });
-  });
   
-  describe('when invoked on a site without base url setting', function() {
-    var site = new MockSite();
-    
-    it('should throw an error', function() {
-      expect(function() {
-        robots()(site, site.pages);
-      }).to.throw(/requires \"base url\" setting/);
+    it('should write robots.txt', function() {
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\n');
     });
-  });
-  */
+  }); // default exclusion
+  
+  describe('default exclusion with sitemap', function() {
+    var page, err;
+
+    before(function(done) {
+      chai.kerouac.use(robots())
+        .page(function(page) {
+          page.pages = [
+            { url: '/sitemap.xml', sitemap: true }
+          ];
+        })
+        .end(function(p) {
+          page = p;
+          done();
+        })
+        .dispatch();
+    });
+  
+    it('should write robots.txt', function() {
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemap.xml\r\n');
+    });
+  }); // default exclusion with sitemap
   
 });
