@@ -49,4 +49,51 @@ describe('kerouac-robotstxt', function() {
     });
   }); // default exclusion with sitemap
   
+  describe('default exclusion with multiple sitemaps', function() {
+    var page, err;
+
+    before(function(done) {
+      chai.kerouac.use(robots())
+        .page(function(page) {
+          page.pages = [
+            { url: '/sitemap.xml', sitemap: true },
+            { url: '/blog/sitemap.xml', sitemap: true }
+          ];
+        })
+        .end(function(p) {
+          page = p;
+          done();
+        })
+        .dispatch();
+    });
+  
+    it('should write robots.txt', function() {
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemap.xml\r\nSitemap: /blog/sitemap.xml\r\n');
+    });
+  }); // default exclusion with multiple sitemaps
+  
+  describe('default exclusion with multiple sitemaps and a sitemap index', function() {
+    var page, err;
+
+    before(function(done) {
+      chai.kerouac.use(robots())
+        .page(function(page) {
+          page.pages = [
+            { url: '/sitemapindex.xml', sitemapIndex: true },
+            { url: '/sitemap.xml', sitemap: true },
+            { url: '/blog/sitemap.xml', sitemap: true }
+          ];
+        })
+        .end(function(p) {
+          page = p;
+          done();
+        })
+        .dispatch();
+    });
+  
+    it('should write robots.txt', function() {
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemapindex.xml\r\n');
+    });
+  }); // default exclusion with multiple sitemaps and a sitemap index
+  
 });
