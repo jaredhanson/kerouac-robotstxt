@@ -1,4 +1,5 @@
 var chai = require('chai');
+var mock = require('chai-kerouac-middleware');
 var robots = require('../lib');
 
 
@@ -15,6 +16,9 @@ describe('kerouac-robotstxt', function() {
 
     before(function(done) {
       chai.kerouac.use(robots())
+        .page(function(page) {
+          page.site = new mock.Site();
+        })
         .end(function(p) {
           page = p;
           done();
@@ -33,6 +37,9 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
+          page.site = new mock.Site();
+          page.site.set('base url', 'http://www.example.com/');
+          
           page.pages = [
             { url: '/sitemap.xml', sitemap: true }
           ];
@@ -45,7 +52,7 @@ describe('kerouac-robotstxt', function() {
     });
   
     it('should write robots.txt', function() {
-      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemap.xml\r\n');
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemap.xml\r\n');
     });
   }); // default exclusion with sitemap
   
@@ -55,6 +62,9 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
+          page.site = new mock.Site();
+          page.site.set('base url', 'http://www.example.com/');
+          
           page.pages = [
             { url: '/sitemap.xml', sitemap: true },
             { url: '/blog/sitemap.xml', sitemap: true }
@@ -68,7 +78,7 @@ describe('kerouac-robotstxt', function() {
     });
   
     it('should write robots.txt', function() {
-      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemap.xml\r\nSitemap: /blog/sitemap.xml\r\n');
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemap.xml\r\nSitemap: http://www.example.com/blog/sitemap.xml\r\n');
     });
   }); // default exclusion with multiple sitemaps
   
@@ -78,6 +88,9 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
+          page.site = new mock.Site();
+          page.site.set('base url', 'http://www.example.com/');
+          
           page.pages = [
             { url: '/sitemapindex.xml', sitemapIndex: true },
             { url: '/sitemap.xml', sitemap: true },
@@ -92,7 +105,7 @@ describe('kerouac-robotstxt', function() {
     });
   
     it('should write robots.txt', function() {
-      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: /sitemapindex.xml\r\n');
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemapindex.xml\r\n');
     });
   }); // default exclusion with multiple sitemaps and a sitemap index
   
