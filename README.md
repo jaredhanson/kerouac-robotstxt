@@ -24,7 +24,7 @@ site.page('/robots.txt', require('kerouac-robotstxt')());
 
 The generated output will include a `/robots.txt` resource.  If your site
 contains any sitemaps, which can be generated using [kerouac-sitemap](https://github.com/jaredhanson/kerouac-sitemap),
-the sitemap locations will be included so that search engines can automatically
+the sitemap locations will be included so that search engines will automatically
 discover all pages of your site.
 
 ## License
