@@ -1,6 +1,6 @@
 {
   "name": "kerouac-robotstxt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "robots.txt middleware for Kerouac.",
   "keywords": [
     "robots",
@@ -28,8 +28,7 @@
     }
   ],
   "main": "./lib",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "make-node": "0.3.x",
     "mocha": "1.x.x",
