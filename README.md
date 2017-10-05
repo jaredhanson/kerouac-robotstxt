@@ -7,7 +7,7 @@
 [![Dependencies](https://img.shields.io/david/jaredhanson/kerouac-robotstxt.svg)](https://david-dm.org/jaredhanson/kerouac-robotstxt)
 
 
-This is a [Kerouac](https://github.com/jaredhanson/kerouac) plugin that gives
+[Kerouac](https://github.com/jaredhanson/kerouac) middleware that gives
 instructions to web crawlers using the [Robots Exclusion Protocol](http://www.robotstxt.org/).
 
 ## Install
@@ -16,21 +16,16 @@ instructions to web crawlers using the [Robots Exclusion Protocol](http://www.ro
     
 ## Usage
 
-Simply plug `kerouac-robotstxt` into your site.  The generated output will
-include a `/robots.txt` resource.
+Simply declare a `robots.txt` page, using this middleware.
 
-    site.plug(require('kerouac-robotstxt')());
+```js
+site.page('/robots.txt', require('kerouac-robotstxt')());
+```
 
-## Tests
-
-    $ npm install
-    $ make test
-
-[![Build Status](https://secure.travis-ci.org/jaredhanson/kerouac-robotstxt.png)](http://travis-ci.org/jaredhanson/kerouac-robotstxt)  [![David DM](https://david-dm.org/jaredhanson/kerouac-robotstxt.png)](http://david-dm.org/jaredhanson/kerouac-robotstxt)
-
-## Credits
-
-  - [Jared Hanson](http://github.com/jaredhanson)
+The generated output will include a `/robots.txt` resource.  If your site
+contains any sitemaps, which can be generated using [kerouac-sitemap](https://github.com/jaredhanson/kerouac-sitemap),
+the sitemap locations will be included so that search engines can automatically
+discover all pages of your site.
 
 ## License
 
