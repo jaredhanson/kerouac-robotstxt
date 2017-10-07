@@ -76,10 +76,9 @@ describe('kerouac-robotstxt', function() {
       chai.kerouac.use(robots())
         .page(function(page) {
           page.site = new mock.Site();
-          page.site.set('base url', 'http://www.example.com/');
           
           page.pages = [
-            { url: '/sitemap.xml', sitemap: true }
+            { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true }
           ];
         })
         .end(function(p) {
@@ -101,11 +100,10 @@ describe('kerouac-robotstxt', function() {
       chai.kerouac.use(robots())
         .page(function(page) {
           page.site = new mock.Site();
-          page.site.set('base url', 'http://www.example.com/');
           
           page.pages = [
-            { url: '/sitemap.xml', sitemap: true },
-            { url: '/blog/sitemap.xml', sitemap: true }
+            { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true },
+            { url: '/blog/sitemap.xml', fullURL: 'http://www.example.com/blog/sitemap.xml', sitemap: true }
           ];
         })
         .end(function(p) {
@@ -127,12 +125,11 @@ describe('kerouac-robotstxt', function() {
       chai.kerouac.use(robots())
         .page(function(page) {
           page.site = new mock.Site();
-          page.site.set('base url', 'http://www.example.com/');
           
           page.pages = [
-            { url: '/sitemapindex.xml', sitemapIndex: true },
-            { url: '/sitemap.xml', sitemap: true },
-            { url: '/blog/sitemap.xml', sitemap: true }
+            { url: '/sitemap_index.xml', fullURL: 'http://www.example.com/sitemap_index.xml', sitemapIndex: true },
+            { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true },
+            { url: '/blog/sitemap.xml', fullURL: 'http://www.example.com/blog/sitemap.xml', sitemap: true }
           ];
         })
         .end(function(p) {
@@ -143,7 +140,7 @@ describe('kerouac-robotstxt', function() {
     });
   
     it('should write robots.txt', function() {
-      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemapindex.xml\r\n');
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemap_index.xml\r\n');
     });
   }); // default exclusion with multiple sitemaps and a sitemap index
   
