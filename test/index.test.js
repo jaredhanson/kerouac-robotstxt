@@ -92,6 +92,30 @@ describe('kerouac-robotstxt', function() {
     });
   }); // default exclusion with sitemap
   
+  describe('default exclusion with sitemap in parent site, with mounted option', function() {
+    var page, err;
+
+    before(function(done) {
+      chai.kerouac.use(robots({ mounted: true }))
+        .page(function(page) {
+          page.site = new mock.Site();
+          page.site.parent = new mock.Site();
+          page.site.parent.pages = [
+            { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true }
+          ];
+        })
+        .end(function(p) {
+          page = p;
+          done();
+        })
+        .dispatch();
+    });
+  
+    it('should write robots.txt', function() {
+      expect(page.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\nSitemap: http://www.example.com/sitemap.xml\r\n');
+    });
+  }); // default exclusion with sitemap in parent site, with mounted option
+  
   describe('default exclusion with sitemap that lacks a full URL', function() {
     var page, err;
 
