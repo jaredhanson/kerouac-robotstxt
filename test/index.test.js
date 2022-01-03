@@ -15,7 +15,7 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
-          page.site = new mock.Site();
+          page.app = new mock.Site();
         })
         .end(function(p) {
           page = p;
@@ -35,7 +35,7 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots({ delay: 5 }))
         .page(function(page) {
-          page.site = new mock.Site();
+          page.app = new mock.Site();
         })
         .end(function(p) {
           page = p;
@@ -55,7 +55,7 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots({ delay: 0.5 }))
         .page(function(page) {
-          page.site = new mock.Site();
+          page.app = new mock.Site();
         })
         .end(function(p) {
           page = p;
@@ -75,8 +75,8 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
-          page.site = new mock.Site();
-          page.site.pages = [
+          page.app = new mock.Site();
+          page.app.pages = [
             { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true }
           ];
         })
@@ -98,9 +98,9 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots({ mounted: true }))
         .page(function(page) {
-          page.site = new mock.Site();
-          page.site.parent = new mock.Site();
-          page.site.parent.pages = [
+          page.app = new mock.Site();
+          page.app.parent = new mock.Site();
+          page.app.parent.pages = [
             { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true }
           ];
         })
@@ -122,8 +122,8 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
-          page.site = new mock.Site();
-          page.site.pages = [
+          page.app = new mock.Site();
+          page.app.pages = [
             { url: '/sitemap.xml', sitemap: true }
           ];
         })
@@ -145,8 +145,8 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
-          page.site = new mock.Site();
-          page.site.pages = [
+          page.app = new mock.Site();
+          page.app.pages = [
             { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true },
             { url: '/blog/sitemap.xml', fullURL: 'http://www.example.com/blog/sitemap.xml', sitemap: true }
           ];
@@ -169,8 +169,8 @@ describe('kerouac-robotstxt', function() {
     before(function(done) {
       chai.kerouac.use(robots())
         .page(function(page) {
-          page.site = new mock.Site();
-          page.site.pages = [
+          page.app = new mock.Site();
+          page.app.pages = [
             { url: '/sitemap_index.xml', fullURL: 'http://www.example.com/sitemap_index.xml', sitemapIndex: true },
             { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml', sitemap: true },
             { url: '/blog/sitemap.xml', fullURL: 'http://www.example.com/blog/sitemap.xml', sitemap: true }
