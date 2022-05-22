@@ -3,36 +3,36 @@ var mock = require('chai-kerouac-middleware');
 var robots = require('../lib');
 
 
-describe('kerouac-robotstxt', function() {
+describe('middleware/robots', function() {
   
-  it('should write robots.txt', function(done) {
+  it('should allow all robots complete access by default', function(done) {
     chai.kerouac.use(robots())
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\n');
         done();
       })
       .generate();
-  }); // should write robots.txt
+  }); // should allow all robots complete access by default
   
-  it('should write robots.txt with crawl delay', function(done) {
+  it('should delay the frequency with which a crawler checks for new content', function(done) {
     chai.kerouac.use(robots({ delay: 5 }))
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\nCrawl-delay: 5\r\n\r\n');
         done();
       })
       .generate();
-  }); // should write robots.txt with crawl delay
+  }); // should delay the frequency with which a crawler checks for new content
   
-  it('should write robots.txt with fractional crawl delay', function(done) {
+  it('should delay the frequency with which a crawler checks for new content by a fractional value', function(done) {
     chai.kerouac.use(robots({ delay: 0.5 }))
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\nCrawl-delay: 0.5\r\n\r\n');
         done();
       })
       .generate();
-  }); // should write robots.txt with fractional crawl delay
+  }); // should delay the frequency with which a crawler checks for new content by a fractional value
   
-  it('should write robots.txt with sitemap', function(done) {
+  it('should specify location of sitemap', function(done) {
     chai.kerouac.use(robots())
       .request(function(page) {
         page.locals = {};
@@ -45,24 +45,9 @@ describe('kerouac-robotstxt', function() {
         done();
       })
       .generate();
-  }); // should write robots.txt with sitemap
+  }); // should specify location of sitemap
   
-  it('should not write robots.txt with sitemap that lacks a full URL', function(done) {
-    chai.kerouac.use(robots())
-      .request(function(page) {
-        page.locals = {};
-        page.locals.sitemaps = [
-          { url: '/sitemap.xml' }
-        ];
-      })
-      .finish(function() {
-        expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\n');
-        done();
-      })
-      .generate();
-  }); // should not write robots.txt with sitemap that lacks a full URL'
-  
-  it('should write robots.txt with multiple sitemaps', function(done) {
+  it('should specify location of multiple sitemaps', function(done) {
     chai.kerouac.use(robots())
       .request(function(page) {
         page.locals = {};
@@ -76,6 +61,21 @@ describe('kerouac-robotstxt', function() {
         done();
       })
       .generate();
-  }); // should write robots.txt with multiple sitemaps
+  }); // should specify location of multiple sitemaps
+  
+  it('should not specify location of sitemap that lacks a full URL', function(done) {
+    chai.kerouac.use(robots())
+      .request(function(page) {
+        page.locals = {};
+        page.locals.sitemaps = [
+          { url: '/sitemap.xml' }
+        ];
+      })
+      .finish(function() {
+        expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\n');
+        done();
+      })
+      .generate();
+  }); // should not specify location of sitemap that lacks a full URL
   
 });
