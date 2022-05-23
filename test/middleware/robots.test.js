@@ -1,6 +1,5 @@
 var chai = require('chai');
-var mock = require('chai-kerouac-middleware');
-var robots = require('../lib');
+var robots = require('../../lib');
 
 
 describe('middleware/robots', function() {
