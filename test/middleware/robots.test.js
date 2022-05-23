@@ -1,11 +1,11 @@
 var chai = require('chai');
-var robots = require('../../lib');
+var robotstxt = require('../../lib');
 
 
 describe('middleware/robots', function() {
   
   it('should allow all robots complete access by default', function(done) {
-    chai.kerouac.use(robots())
+    chai.kerouac.use(robotstxt())
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\n\r\n');
         done();
@@ -14,7 +14,7 @@ describe('middleware/robots', function() {
   }); // should allow all robots complete access by default
   
   it('should delay the frequency with which a crawler checks for new content', function(done) {
-    chai.kerouac.use(robots({ delay: 5 }))
+    chai.kerouac.use(robotstxt({ delay: 5 }))
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\nCrawl-delay: 5\r\n\r\n');
         done();
@@ -23,7 +23,7 @@ describe('middleware/robots', function() {
   }); // should delay the frequency with which a crawler checks for new content
   
   it('should delay the frequency with which a crawler checks for new content by a fractional value', function(done) {
-    chai.kerouac.use(robots({ delay: 0.5 }))
+    chai.kerouac.use(robotstxt({ delay: 0.5 }))
       .finish(function() {
         expect(this.body).to.equal('User-agent: *\r\nDisallow:\r\nCrawl-delay: 0.5\r\n\r\n');
         done();
@@ -32,7 +32,7 @@ describe('middleware/robots', function() {
   }); // should delay the frequency with which a crawler checks for new content by a fractional value
   
   it('should specify location of sitemap', function(done) {
-    chai.kerouac.use(robots())
+    chai.kerouac.use(robotstxt())
       .request(function(page) {
         page.locals = {};
         page.locals.sitemaps = [
@@ -47,7 +47,7 @@ describe('middleware/robots', function() {
   }); // should specify location of sitemap
   
   it('should specify location of multiple sitemaps', function(done) {
-    chai.kerouac.use(robots())
+    chai.kerouac.use(robotstxt())
       .request(function(page) {
         page.locals = {};
         page.locals.sitemaps = [
@@ -63,7 +63,7 @@ describe('middleware/robots', function() {
   }); // should specify location of multiple sitemaps
   
   it('should not specify location of sitemap that lacks a full URL', function(done) {
-    chai.kerouac.use(robots())
+    chai.kerouac.use(robotstxt())
       .request(function(page) {
         page.locals = {};
         page.locals.sitemaps = [
