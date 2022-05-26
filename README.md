@@ -1,7 +1,7 @@
 # kerouac-robotstxt
 
 [Kerouac](https://github.com/jaredhanson/kerouac) middleware that gives
-instructions to web crawlers using the [Robots Exclusion Protocol](http://www.robotstxt.org/).
+instructions to web crawlers using the [Robots Exclusion Protocol](https://www.robotstxt.org/).
 
 ## Install
 
