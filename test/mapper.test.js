@@ -18,12 +18,12 @@ describe('Mapper', function() {
   
   it('should set sitemap for robots.txt', function(done) {
     chai.kerouac.map(robotstxt.createMapper(), [
-      { path: '/sitemap.xml', sitemap: true }
+      { path: '/sitemap.xml', isSitemap: true }
     ])
       .close(function() {
         expect(this).to.request([ '/robots.txt' ]);
         expect(this.pages['/robots.txt'].locals).to.deep.equal({
-          sitemaps: [ { path: '/sitemap.xml', sitemap: true } ]
+          sitemaps: [ { path: '/sitemap.xml', isSitemap: true } ]
         })
         done();
       })
