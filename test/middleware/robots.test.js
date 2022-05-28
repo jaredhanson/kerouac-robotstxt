@@ -36,7 +36,7 @@ describe('middleware/robots', function() {
       .request(function(page) {
         page.locals = {};
         page.locals.sitemaps = [
-          { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml' }
+          { fullURL: 'http://www.example.com/sitemap.xml' }
         ];
       })
       .finish(function() {
@@ -51,8 +51,8 @@ describe('middleware/robots', function() {
       .request(function(page) {
         page.locals = {};
         page.locals.sitemaps = [
-          { url: '/sitemap.xml', fullURL: 'http://www.example.com/sitemap.xml' },
-          { url: '/blog/sitemap.xml', fullURL: 'http://www.example.com/blog/sitemap.xml' }
+          { fullURL: 'http://www.example.com/sitemap.xml' },
+          { fullURL: 'http://www.example.com/blog/sitemap.xml' }
         ];
       })
       .finish(function() {
