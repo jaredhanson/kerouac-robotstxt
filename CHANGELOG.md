@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Module now exports a function which constructs a `kerouac.Router` instance
+which generates a file at the required `/robots.txt` location.  This eliminates
+boilerplate necessitated by the previously exported middleware.
+
 ## [0.5.0] - 2023-12-13
 
 ### Added
