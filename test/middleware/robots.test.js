@@ -1,5 +1,5 @@
 var chai = require('chai');
-var robotstxt = require('../../lib');
+var robotstxt = require('../../lib/middleware/robots');
 
 
 describe('middleware/robots', function() {
