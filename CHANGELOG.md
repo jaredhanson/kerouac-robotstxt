@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.0] - 2023-12-13
 
+### Added
+
+- Exported `createMapper()` function, which returns a new instance of `Mapper`.
+This is used with changes to `generate()` introduced in `kerouac@0.2.0`.
+
+### Changed
+
+- Sitemap locations are determined by `isSitemap` and `isInSitemap` properties
+set on pages, rather than `sitemap` and `sitemapIndex`, in accordance with
+changes introduced in `kerouac-sitemap@0.5.0`.
+
 ## [0.4.2] - 2018-09-12
 
 ## [0.4.1] - 2018-09-12
