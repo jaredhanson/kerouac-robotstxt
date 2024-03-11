@@ -46,6 +46,6 @@
     "test": "NODE_PATH=./lib node_modules/.bin/mocha --reporter spec --require test/node/bootstrap test/*.test.js"
   },
   "dependencies": {
-    "kerouac": "^0.2.0"
+    "kerouac": "^0.3.0"
   }
 }
